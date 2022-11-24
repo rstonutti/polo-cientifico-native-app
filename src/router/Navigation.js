@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 
-import { LOGGED_IN, LOADING } from "../contexts/AuthContext";
+import { LOGGED_OUT, LOGGED_IN, LOADING } from "../contexts/AuthContext";
 
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Center, CircleIcon, InfoIcon, Text } from "native-base";
@@ -12,9 +12,6 @@ import { Center, CircleIcon, InfoIcon, Text } from "native-base";
 import { Home, Login } from "../screens/index";
 import { StatusBar } from "expo-status-bar";
 import useAuthContext from "../hooks/useAuthContext";
-
-import PrivateScreen from "./PrivateScreen";
-import PublicScreen from "./PublicScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -29,7 +26,7 @@ const Navigation = () => {
     <NavigationContainer>
       <StatusBar style="light" />
       <Stack.Navigator>
-        {loggedState ? (
+        {LOADING && loggedState === LOGGED_IN ? (
           <Stack.Screen name="Home" component={Home} />
         ) : (
           <Stack.Screen name="Login" component={Login} />

@@ -7,19 +7,22 @@ import {
   Input,
   Button,
   Center,
+  Text,
 } from "native-base";
 import { useState } from "react";
+import { fetchSinToken } from "../helpers/fetch";
 import useAuthContext from "../hooks/useAuthContext";
 
 const Login = () => {
   const { login } = useAuthContext();
 
-  const [form, setForm] = useState({ correo: "", password: "" });
+  const [form, setForm] = useState({
+    correo: "",
+    password: "",
+  });
   const [error, setError] = useState([]);
 
-  const { correo, password } = form;
-
-  const onChangeHandler = (value, name) => {
+  const onChangeHandler = (name, value) => {
     // how to handle for each state field
     setForm((form) => ({
       ...form,
@@ -28,19 +31,16 @@ const Login = () => {
   };
 
   const handleLogin = async () => {
-    console.log("Presionado");
-    /* const resp = await fetchSinToken(
-      "api/v1/auth/login",
-      { correo, password },
-      "POST"
-    );
-    const { usuario, token, msg } = await resp.json();
+    const resp = await fetchSinToken("api/v1/auth/login", form, "POST");
+    const data = await resp.json();
 
     if (resp.ok) {
       login();
     } else {
-      setError(msg);
-    } */
+      console.log(data.msg);
+      setError(data.errors || [{ param: "database", msg: data.msg }]);
+      console.log(error, "aver");
+    }
   };
 
   return (
@@ -89,6 +89,15 @@ const Login = () => {
               placeholder="Ingrese su correo..."
               onChangeText={(value) => onChangeHandler("correo", value)}
             />
+            {error.length != 0 &&
+              error.map(
+                (errors) =>
+                  errors.param === "correo" && (
+                    <Center>
+                      <Text>{errors.msg}</Text>
+                    </Center>
+                  )
+              )}
           </FormControl>
           <FormControl>
             <FormControl.Label>Contraseña</FormControl.Label>
@@ -100,10 +109,28 @@ const Login = () => {
               placeholder="Ingrese su contraseña..."
               onChangeText={(value) => onChangeHandler("password", value)}
             />
+            {error.length != 0 &&
+              error.map(
+                (errors) =>
+                  errors.param === "password" && (
+                    <Center>
+                      <Text>{errors.msg}</Text>
+                    </Center>
+                  )
+              )}
           </FormControl>
           <Button mt="2" colorScheme="indigo" onPress={handleLogin}>
             Iniciar sesión
           </Button>
+          {error.length != 0 &&
+            error.map(
+              (errors) =>
+                errors.param === "database" && (
+                  <Center>
+                    <Text>{errors.msg}</Text>
+                  </Center>
+                )
+            )}
         </VStack>
       </Box>
     </Center>

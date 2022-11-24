@@ -1,4 +1,4 @@
-const localUrl = "http://192.168.0.26:5000";
+const localUrl = "http://192.168.137.1:5000";
 const testUrl = "http://192.168.0.55:5000";
 
 const fetchSinToken = (endpoint, data, method = "GET") => {
