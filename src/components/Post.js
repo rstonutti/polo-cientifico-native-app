@@ -1,4 +1,4 @@
-import { VStack, Text, Stack } from "native-base";
+import { VStack, Text, Stack, Image, HStack } from "native-base";
 import Comment from "./Comment";
 
 const Post = ({ uid, autor, created_at, descripcion, comentario }) => {
@@ -12,16 +12,28 @@ const Post = ({ uid, autor, created_at, descripcion, comentario }) => {
       padding={5}
       key={uid}
     >
-      <VStack>
-        <Stack>
-          <Text fontWeight={"bold"}>{autor.nombre}</Text>
-        </Stack>
-        <Stack>
-          <Text fontStyle={"italic"} fontSize={12}>
-            {created_at}
-          </Text>
-        </Stack>
-      </VStack>
+      <HStack alignItems={"center"}>
+        <Image
+          width={10}
+          height={10}
+          borderRadius={50}
+          marginRight={2.5}
+          source={{
+            uri: `https://res.cloudinary.com/dawjd5cx8/image/upload/${autor.avatar}`,
+          }}
+          alt={autor.avatar}
+        />
+        <VStack>
+          <Stack>
+            <Text fontWeight={"bold"}>{autor.nombre}</Text>
+          </Stack>
+          <Stack>
+            <Text fontStyle={"italic"} fontSize={12}>
+              {created_at}
+            </Text>
+          </Stack>
+        </VStack>
+      </HStack>
       <Stack>
         <Text my={5}>{descripcion}</Text>
         <Text fontStyle={"italic"} fontSize={12}>
