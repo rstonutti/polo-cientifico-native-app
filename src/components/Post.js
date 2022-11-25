@@ -4,7 +4,7 @@ import Comment from "./Comment";
 const Post = ({ uid, autor, created_at, descripcion, comentario }) => {
   return (
     <Stack
-      backgroundColor={"#c1e1a7"}
+      backgroundColor={"#dfe4dc"}
       width="90%"
       borderRadius={10}
       mx={5}

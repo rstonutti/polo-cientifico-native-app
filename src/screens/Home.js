@@ -27,13 +27,13 @@ const Home = () => {
 
   return (
     <Center
-      backgroundColor={"#0e2c40"}
+      backgroundColor={"#fff"}
       height="100%"
       width="100%"
       justifyContent="flex-start"
     >
       <Box
-        backgroundColor={"#c1e1a7"}
+        backgroundColor={"#2f3e46"}
         width="95%"
         height="15%"
         borderRadius={15}
@@ -41,14 +41,15 @@ const Home = () => {
         alignItems={"flex-end"}
         flexDirection={"row"}
         padding={5}
-        margin={5}
+        mt={10}
+        mb={5}
       >
-        <Text color={"#0e2c40"} fontSize={20}>
+        <Text color={"#fff"} fontSize={25} fontWeight={"bold"}>
           General
         </Text>
         <Button
           mt="2"
-          colorScheme="indigo"
+          colorScheme="green"
           onPress={() => {
             logout();
           }}
@@ -59,7 +60,9 @@ const Home = () => {
       {/* <Input width="90%" height="5%" marginBottom={5} /> */}
       {loading ? (
         <Center>
-          <Text>Espere...</Text>
+          <Text height={"100%"} fontSize={20}>
+            Espere...
+          </Text>
         </Center>
       ) : (
         <ScrollView

@@ -37,17 +37,15 @@ const Login = () => {
     if (resp.ok) {
       login();
     } else {
-      console.log(data.msg);
       setError(data.errors || [{ param: "database", msg: data.msg }]);
-      console.log(error, "aver");
     }
   };
 
   return (
     <Center w="100%" height={"100%"}>
       <Box
-        borderRadius={15}
-        backgroundColor={"red.500"}
+        borderRadius={25}
+        backgroundColor={"#2f3e46"}
         safeArea
         w="90%"
         maxW="290"
@@ -55,10 +53,7 @@ const Login = () => {
       >
         <Heading
           size="lg"
-          color="coolGray.800"
-          _dark={{
-            color: "warmGray.50",
-          }}
+          color={"#cad2c5"}
           fontWeight="bold"
           fontSize={20}
           textAlign={"center"}
@@ -67,10 +62,7 @@ const Login = () => {
         </Heading>
         <Heading
           size="lg"
-          color="coolGray.800"
-          _dark={{
-            color: "warmGray.50",
-          }}
+          color={"#cad2c5"}
           fontWeight="bold"
           fontSize={20}
           textAlign={"center"}
@@ -81,8 +73,17 @@ const Login = () => {
           <FormControl>
             <FormControl.Label>Correo</FormControl.Label>
             <Input
-              //isInvalid={errors.correo ? true : false}
-              color="#c1e1a7"
+              isInvalid={
+                error.length != 0 &&
+                error.map(
+                  (errores) =>
+                    errores.param === "correo" ||
+                    (errores.param === "database" && true)
+                )
+              }
+              borderRadius={10}
+              color="#2f3e46"
+              backgroundColor={"#fffcc8"}
               selectionColor="#c1e1a7"
               my="2"
               type="text"
@@ -93,8 +94,10 @@ const Login = () => {
               error.map(
                 (errors) =>
                   errors.param === "correo" && (
-                    <Center>
-                      <Text>{errors.msg}</Text>
+                    <Center key={errors.param}>
+                      <Text color={"red.500"} fontWeight={"bold"} fontSize={12}>
+                        {errors.msg}
+                      </Text>
                     </Center>
                   )
               )}
@@ -102,7 +105,17 @@ const Login = () => {
           <FormControl>
             <FormControl.Label>Contraseña</FormControl.Label>
             <Input
-              color="#c1e1a7"
+              isInvalid={
+                error.length != 0 &&
+                error.map(
+                  (errores) =>
+                    errores.param === "password" ||
+                    (errores.param === "database" && true)
+                )
+              }
+              borderRadius={10}
+              color="#2f3e46"
+              backgroundColor={"#fffcc8"}
               selectionColor="#c1e1a7"
               my="2"
               type="password"
@@ -113,21 +126,30 @@ const Login = () => {
               error.map(
                 (errors) =>
                   errors.param === "password" && (
-                    <Center>
-                      <Text>{errors.msg}</Text>
+                    <Center key={errors.param}>
+                      <Text color={"red.500"} fontWeight={"bold"} fontSize={12}>
+                        {errors.msg}
+                      </Text>
                     </Center>
                   )
               )}
           </FormControl>
-          <Button mt="2" colorScheme="indigo" onPress={handleLogin}>
+          <Button
+            margin={"auto"}
+            mt="2"
+            backgroundColor={"#198754"}
+            onPress={handleLogin}
+          >
             Iniciar sesión
           </Button>
           {error.length != 0 &&
             error.map(
               (errors) =>
                 errors.param === "database" && (
-                  <Center>
-                    <Text>{errors.msg}</Text>
+                  <Center key={errors.param}>
+                    <Text color={"red.500"} fontWeight={"bold"} fontSize={12}>
+                      {errors.msg}
+                    </Text>
                   </Center>
                 )
             )}
